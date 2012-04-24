@@ -15,7 +15,7 @@ function Sprite (spritesheet, dx, dy, dw, dh, row, interval, frames, pingpong) {
 
 	this.current_frame = 0;
 	this.animating = false;
-	this.pingpong_direction = 1;
+	this.pingpong_direction = 1; // 1 = incrementing frame count, 0 = decrementing frame count
 }
 
 Sprite.prototype.SetLocation = function (x, y) {
@@ -29,9 +29,9 @@ Sprite.prototype.Draw = function (context) {
 
 Sprite.prototype.StartAnimation = function () {
 	if (!this.animating) {
-        this.animating = true;
-        this.Animate();
-    }
+        	this.animating = true;
+        	this.Animate();
+	}
 }
 
 Sprite.prototype.StopAnimation = function () {
@@ -40,29 +40,29 @@ Sprite.prototype.StopAnimation = function () {
 
 Sprite.prototype.Animate = function () {
 	if (this.animating == true) {
-        var self = this;
-        setTimeout(function() { self.Animate() }, this.interval);
-        if (this.pingpong) {
-            if (this.pingpong_direction == 1) {
-                this.current_frame++;
-                if (this.current_frame == this.total_frames) {
-                    this.current_frame -= 2;
-                    this.pingpong_direction = 0;
-                }
-            } else {
-                this.current_frame--;
-                if (this.current_frame == -1) {
-                    this.current_frame = 1;
-                    this.pingpong_direction = 1;
-                }
-            }
-        } else {
-            this.current_frame++;
-            if (this.current_frame == this.total_frames) {
-                this.current_frame = 0;
-            }
-        }
-    } else {
-        this.current_frame = 0;
-    }
+		var self = this;
+		setTimeout(function() { self.Animate() }, this.interval);
+		if (this.pingpong) {
+		    if (this.pingpong_direction == 1) {
+		        this.current_frame++;
+		        if (this.current_frame == this.total_frames) {
+		            this.current_frame -= 2;
+		            this.pingpong_direction = 0;
+		        }
+		    } else {
+		        this.current_frame--;
+		        if (this.current_frame == -1) {
+		            this.current_frame = 1;
+		            this.pingpong_direction = 1;
+		        }
+		    }
+		} else {
+		    this.current_frame++;
+		    if (this.current_frame == this.total_frames) {
+		        this.current_frame = 0;
+		    }
+		}
+	} else {
+	this.current_frame = 0;
+	}
 }
