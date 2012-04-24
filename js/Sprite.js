@@ -16,6 +16,7 @@ function Sprite (spritesheet, dx, dy, dw, dh, row, interval, frames, pingpong) {
 	this.current_frame = 0;
 	this.animating = false;
 	this.pingpong_direction = 1; // 1 = incrementing frame count, 0 = decrementing frame count
+	this.timeout = false;
 }
 
 Sprite.prototype.SetLocation = function (x, y) {
@@ -36,12 +37,13 @@ Sprite.prototype.StartAnimation = function () {
 
 Sprite.prototype.StopAnimation = function () {
 	this.animating = false;
+	clearTimeout(this.timeout);
 }
 
 Sprite.prototype.Animate = function () {
 	if (this.animating == true) {
 		var self = this;
-		setTimeout(function() { self.Animate() }, this.interval);
+		this.timeout = setTimeout(function() { self.Animate() }, this.interval);
 		if (this.pingpong) {
 		    if (this.pingpong_direction == 1) {
 		        this.current_frame++;
