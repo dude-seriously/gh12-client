@@ -43,9 +43,9 @@ UserContainer.prototype.Update = function(data) {
 			this.OnUpdate[i](this.container[data.id]);
 		}
 		
-		return true;
+		return this.container[data.id];
 	} else {
-		return false;
+		return null;
 	}
 }
 
@@ -60,17 +60,19 @@ UserContainer.prototype.Remove = function(id) {
 }
 
 UserContainer.prototype.AddOrUpdate = function(data) {
-	if (!this.Update(data)) {
-		this.Add(data);
+	var user = this.Update(data);
+	if (!user) {
+		user = this.Add(data);
 	}
+	return user;
 }
 
 UserContainer.prototype.AddOrGet = function(data) {
-	var result = this.Add(data);
+	var result = this.Get(data.id);
 	if (result) {
 		return result;
 	} else {
-		return this.container[data.id];
+		return this.Add(data);
 	}
 }
 
@@ -92,8 +94,7 @@ function User() {
 	this.name = '';
 	this.latency = 0;
 
-	this.x = 0;
-	this.y = 0;
+	this.character = null;
 	
 	for (var n in arguments[0]) {
 		if (arguments[0][n]) {

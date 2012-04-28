@@ -6,6 +6,8 @@ function Sprite (spritesheet, dx, dy, dw, dh, row, interval, frames, pingpong, l
 	this.spritesheet = spritesheet;
 	this.x = dx;	// Destination x
 	this.y = dy;	// Destination y
+	this.ox = dx;
+	this.oy = dy;
 	this.dw = dw;	// Width of the frame
 	this.dh = dh;	// Height of the frame
 	this.row = row;	// Row in spritesheet
@@ -27,8 +29,10 @@ Sprite.prototype.SetLocation = function (x, y) {
 	this.y = y;
 }
 
-Sprite.prototype.Draw = function (context) {
-	context.drawImage(this.spritesheet, this.current_frame*this.dw, this.row*this.dh, this.dw, this.dh, this.x, this.y, this.dw, this.dh);
+Sprite.prototype.Draw = function (context, x, y) {
+	if (this.spritesheet.complete) {
+		context.drawImage(this.spritesheet, this.current_frame*this.dw, this.row*this.dh, this.dw, this.dh, this.x - cameraX + this.ox, this.y - cameraY + this.oy, this.dw, this.dh);
+	}
 }
 
 Sprite.prototype.IsAnimating = function () {

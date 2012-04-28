@@ -11,9 +11,16 @@
 		<script type='text/javascript' src='packet.js'></script>
 		<script type='text/javascript' src='users.js'></script>
 		<script type='text/javascript' src='js/MapManager.js'></script>
+		<script type='text/javascript' src='js/Sprite.js'></script>
+		<script type='text/javascript' src='js/Character.js'></script>
+		<script type='text/javascript' src='js/characters.js'></script>
+		<script type='text/javascript' src='js/heroes.js'></script>
+		<script type='text/javascript' src='js/gameloop.js'></script>
 		
 		<script type='text/javascript'>
 			var client = null;
+			var width = 0;
+			var height = 0;
 			//var self = null;
 			var initialized = false;
 			
@@ -23,18 +30,24 @@
 			var ctx;
 			var map;
 			var mapTiles;
+
+			var imgPlayer;
+
+			var cameraX = 0;
+			var cameraY = 0;
 			
 			$(document).ready(function() {
 				var canvas = document.getElementById("canv");
 				ctx = canvas.getContext("2d");
 
+				width = canvas.width;
+				height = canvas.height;
+
 				mapTiles = new Image();
-				mapTiles.onload = function() {
-					if (map) {
-						map.DrawMap(ctx, 0, 0);
-					}
-				}
 				mapTiles.src = "img/mapsheet.png";
+
+				imgPlayer = new Image();
+				imgPlayer.src = "img/testplayer.png";
 
 				$logElement = $('div#log');
 				Log('system', 'begin');
@@ -68,6 +81,9 @@
 						$('div#top div#userName').css('display', 'block');
 						//$('div#top div#users').css('display', 'block');
 						
+						loop = new GameLoop();
+						loop.Run();
+
 						client.AddCallBack('welcome', function(data) {
 							LogI('welcome', data.message);
 						});
@@ -92,13 +108,14 @@
 								}
 							}
 
-							map = new MapManager(640, 480, mapTiles, mapArray);
-							if (mapTiles.complete) {
-	    						map.DrawMap(ctx, 0, 0);
-	    					}
+							map = new MapManager(width, height, mapTiles, mapArray);
 						});
 						
 						InitUsers();
+
+						InitCharacters();
+
+						InitHeroes();
 						
 						userContainer.AddEventOnAdd(function(user) {
 							var row = $('<div class="row" id="user_' + user.id + '"></div>');
@@ -156,8 +173,8 @@
 						});
 
 						$("#canv").mousemove(function (event) {
-					        ctx.clearRect ( 0 ,0 , 640 , 480 );
-					        map.DrawMap(ctx, event.pageX, event.pageY);
+					        //cameraX = 
+					        //map.DrawMap(ctx, (event.pageX - $("#canv").offset().left) - (width / 2), (event.pageY - $("#canv").offset().top) - (height / 2));
 					    });
 
 						/*
@@ -178,7 +195,7 @@
 			<div id="status"></div>
 			<div id="frame">
 				<div class="top"><div class="topLeft"></div><div class="topRight"></div> </div>
-				<div class="mid"><div class="left"> </div><div class="canv"><canvas id="canv" width="640" height="480" >Canvas are not supported, please use one of latest versions of Firefox or Chrome</canvas></div><div class="right"> </div></div>
+				<div class="mid"><div class="left"> </div><div class="canv"><canvas id="canv" width="640" height="416" >Canvas are not supported, please use one of latest versions of Firefox or Chrome</canvas></div><div class="right"> </div></div>
 				<div class="bottom"><div class="bottomLeft"></div><div class="bottomRight"></div></div>
 			</div>
 			

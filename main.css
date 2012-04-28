@@ -100,6 +100,7 @@ div#top div#setNick {
 
 div#log {
 	width:100%;
+	font-family:"Courier New";
 }
 
 div#log div.row {
@@ -207,7 +208,7 @@ body {
 
 #frame .mid {
 	position:relative;
-
+	overflow: hidden;
 }
 
 #frame .bottom {
@@ -240,8 +241,6 @@ body {
 	position: absolute;
 }
 .mid .canv {
-	width:640px;
-	height:480px;
 	margin: 0 128px;
 }
 .mid .right {

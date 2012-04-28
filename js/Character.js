@@ -1,43 +1,41 @@
 /*
-	The Character class (visual)
+	The CharacterSprite class (visual)
 	Author: Maciej Baron
 */
 
-function Character(start_x, start_y, sprite, speed) {
+function CharacterSprite(start_x, start_y, sprite, speed) {
+	this.sprite = sprite;
 	this.sprite.x = start_x;
 	this.sprite.y = start_y;
-	this.sprite = sprite;
-	this.speed = speed;
+	this.speed = 1;//speed;
 
 	this.facing = 0;
 
-	this.target_x = 0;
-	this.target_y = 0;
-
-	this.timeout = 0;
+	this.target_x = start_x;
+	this.target_y = start_y;
 }
 
-Character.prototype.GetX = function () {
+CharacterSprite.prototype.GetX = function () {
 	return this.sprite.x;
 }
 
-Character.prototype.GetY = function () {
+CharacterSprite.prototype.GetY = function () {
 	return this.sprite.y;
 }
 
-Character.prototype.GetSprite = function () {
+CharacterSprite.prototype.GetSprite = function () {
 	return this.sprite;
 }
 
-Character.prototype.GetSpeed = function () {
+CharacterSprite.prototype.GetSpeed = function () {
 	return this.speed;
 }
 
-Character.prototype.GetFacing = function () {
+CharacterSprite.prototype.GetFacing = function () {
 	return this.facing;
 }
 
-Character.prototype.SetFacing = function (facing) {
+CharacterSprite.prototype.SetFacing = function (facing) {
 	this.facing = facing;
 
 	/*
@@ -55,28 +53,28 @@ Character.prototype.SetFacing = function (facing) {
 	}
 }
 
-Character.prototype.IsMoving = function () {
-	return (this.x != this.target_x || this.y != this.target_y);
+CharacterSprite.prototype.IsMoving = function () {
+	return (this.sprite.x != this.target_x || this.sprite.y != this.target_y);
 }
 
 
-Character.prototype.Draw = function (context) {
+CharacterSprite.prototype.Draw = function (context) {
 	this.sprite.Draw(context);
 }
 
-Character.prototype.MoveTo = function (x, y) {
+CharacterSprite.prototype.MoveTo = function (x, y) {
 	this.target_x = x;
 	this.target_y = y;
 
-	if (this.target_x > this.x) {
+	if (this.target_x > this.sprite.x) {
 		this.SetFacing(2); // Right
-	} else if (this.target_x < this.x) {
+	} else if (this.target_x < this.sprite.x) {
 		this.SetFacing(1); // Left
 	}
 
-	if (this.target_y < this.y) {
+	if (this.target_y < this.sprite.y) {
 		this.SetFacing(3); // Up
-	} else if (this.target_y > this.y) {
+	} else if (this.target_y > this.sprite.y && this.facing == 3) {
 		this.SetFacing(0); // Down
 	}
 
@@ -85,25 +83,27 @@ Character.prototype.MoveTo = function (x, y) {
 	}
 }
 
-Character.prototype.Update = function() {
+CharacterSprite.prototype.Update = function() {
 	if (this.IsMoving()) {
-		if (Math.abs(this.x-this.target_x) <= this.speed) {
-			this.x = this.target_x;
+		this.speed = 3.2;
+
+		if (Math.abs(this.sprite.x-this.target_x) <= this.speed) {
+			this.sprite.x = this.target_x;
 		} else {
-			if (this.x > this.target_x) {
-				this.x -= this.speed;
+			if (this.sprite.x > this.target_x) {
+				this.sprite.x -= this.speed;
 			} else {
-				this.x += this.speed;
+				this.sprite.x += this.speed;
 			}
 		}
 
-		if (Math.abs(this.y-this.target_y) <= this.speed) {
-			this.y = this.target_y;
+		if (Math.abs(this.sprite.y-this.target_y) <= this.speed) {
+			this.sprite.y = this.target_y;
 		} else {
-			if (this.y > this.target_y) {
-				this.y -= this.speed;
+			if (this.sprite.y > this.target_y) {
+				this.sprite.y -= this.speed;
 			} else {
-				this.y += this.speed;
+				this.sprite.y += this.speed;
 			}
 		}
 
