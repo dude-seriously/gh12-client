@@ -32,6 +32,7 @@
 			var map;
 			var mapTiles;
 
+			var imgHero;
 			var imgPlayer;
 
 			var cameraX = 0;
@@ -47,8 +48,11 @@
 				mapTiles = new Image();
 				mapTiles.src = "img/mapsheet.png";
 
+				imgHero = new Image();
+				imgHero.src = "img/testplayer.png";
+
 				imgPlayer = new Image();
-				imgPlayer.src = "img/testplayer.png";
+				imgPlayer.src = "img/player.png";
 
 				$logElement = $('div#log');
 				Log('system', 'begin');
