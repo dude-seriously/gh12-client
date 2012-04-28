@@ -17,6 +17,7 @@
 		<script type='text/javascript' src='js/heroes.js'></script>
 		<script type='text/javascript' src='js/gameloop.js'></script>
 		<script type='text/javascript' src='js/Audio.Scene.js'></script>
+		<script type='text/javascript' src='js/Audio.Theme.js'></script>
 		
 		<script type='text/javascript'>
 			var client = null;
@@ -126,7 +127,9 @@
 
 						InitHeroes();
 
-						audio = new Audio.Scene();
+						var audio = new Audio.Scene();
+						var audioTheme = new Audio.Theme({scene: audio, stream: 'snd/eleven_tigers_-_pixelguard_theme.mp3', volume : 0.9});
+						audioTheme.play();
 						
 						userContainer.AddEventOnAdd(function(user) {
 							var row = $('<div class="row" id="user_' + user.id + '"></div>');

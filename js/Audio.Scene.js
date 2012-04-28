@@ -1,7 +1,7 @@
 /**
  * @author eleventigers / http://jokubasdargis.com/
  */
-var audio;
+
 
 Audio.Scene = function (camera) {
 
@@ -53,7 +53,8 @@ Audio.Scene = function (camera) {
         this.context.listener.setPosition( cameraPosition.x, cameraPosition.y, cameraPosition.z );
         this.context.listener.setVelocity( cameraDelta.x, cameraDelta.y, cameraDelta.z );
        
-  };
+    };
+
 
 };
 
