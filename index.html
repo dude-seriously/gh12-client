@@ -10,6 +10,7 @@
 		<script type='text/javascript' src='client.js'></script>
 		<script type='text/javascript' src='packet.js'></script>
 		<script type='text/javascript' src='users.js'></script>
+		<script type='text/javascript' src='js/MapManager.js'></script>
 		
 		<script type='text/javascript'>
 			var client = null;
@@ -18,8 +19,23 @@
 			
 			var nick = "guest";
 			var nickValid = false;
+
+			var ctx;
+			var map;
+			var mapTiles;
 			
 			$(document).ready(function() {
+				var canvas = document.getElementById("canv");
+				ctx = canvas.getContext("2d");
+
+				mapTiles = new Image();
+				mapTiles.onload = function() {
+					if (map) {
+						map.DrawMap(ctx, 0, 0);
+					}
+				}
+				mapTiles.src = "img/mapsheet.png";
+
 				$logElement = $('div#log');
 				Log('system', 'begin');
 				
@@ -38,6 +54,8 @@
 				client.OnDisconnect = function() {
 					$('div#top div#status').html('disconnected');
 					$('div#top div#status').css('display', 'block');
+					$('div#top #canv').css('display', 'none');
+					$('div#top div#userName').css('display', 'none');
 					$('div#top div#users').css('display', 'none');
 				}
 				
@@ -52,6 +70,32 @@
 						
 						client.AddCallBack('welcome', function(data) {
 							LogI('welcome', data.message);
+						});
+
+						client.AddCallBack('userStart', function(data) {
+							$('div#top div#userName').css('display', 'none');
+							$('div#top div#users').css('display', 'block');
+							$('div#top #canv').css('display', 'block');
+						});
+
+						client.AddCallBack('mapData', function(data) {
+							var types = data.d.split(",");
+
+							var mapArray = new Array(data.w);
+							for(var x = 0; x < data.w; ++x) {
+								mapArray[x] = new Array(data.h);
+							}
+
+							for(var y = 0; y < data.h; ++y) {
+								for(var x = 0; x < data.w; ++x) {
+									mapArray[x][y] = types[y * data.w + x];
+								}
+							}
+
+							map = new MapManager(640, 480, mapTiles, mapArray);
+							if (mapTiles.complete) {
+	    						map.DrawMap(ctx, 0, 0);
+	    					}
 						});
 						
 						InitUsers();
@@ -111,6 +155,11 @@
 							}
 						});
 
+						$("#canv").mousemove(function (event) {
+					        ctx.clearRect ( 0 ,0 , 640 , 480 );
+					        map.DrawMap(ctx, event.pageX, event.pageY);
+					    });
+
 						/*
 						var packet = new Object();
 						packet.type = "characterSetDirection";
@@ -127,6 +176,15 @@
 	<body>
 		<div id="top">
 			<div id="status"></div>
+			<div id="frame">
+				
+				<div class="top"><div class="topLeft"></div><div class="topRight"></div> </div>
+				<div class="mid"><div class="left"> </div><div class="canv"><canvas id="canv" width="640" height="480" >Canvas are not supported, please use one of latest versions of Firefox or Chrome</canvas></div><div class="right"> </div></div>
+
+				<div class="bottom"><div class="bottomLeft"></div><div class="bottomRight"></div></div>
+
+			</div>
+			
 			<div id="userName">
 				<input id="nick" type="text" />
 				<div id="setNick">Set</div>

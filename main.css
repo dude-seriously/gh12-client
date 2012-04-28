@@ -1,8 +1,7 @@
 html, body {
 	margin:0;
 	font-size:12px;
-	font-family:"Century Gothic", Tahoma, 'Lucida Sans Unicode', 'Lucida Grande', sans-serif, Arial;
-	background:#323232;
+	font-family: 'SilkscreenNormal';
 }
 
 a {
@@ -13,6 +12,12 @@ a {
 div#top {
 	margin:32px 32px;
 	overflow:hidden;
+}
+
+div#top #canv {
+	display:none;
+	float:left;
+	background:#f00;
 }
 
 div#top div#status {
@@ -121,3 +126,146 @@ div#log div.row div.data {
 	width:90%;
 	float:left;
 }
+
+
+
+/* styles added by eleventigers
+-----------------------------------------------------------------------------------*/
+
+
+@font-face {
+    font-family: 'SilkscreenNormal';
+    src: url('type/slkscr-webfont.eot');
+    src: url('type/slkscr-webfont.eot?#iefix') format('embedded-opentype'),
+         url('type/slkscr-webfont.woff') format('woff'),
+         url('type/slkscr-webfont.ttf') format('truetype'),
+         url('type/slkscr-webfont.svg#SilkscreenNormal') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'SilkscreenBold';
+    src: url('type/slkscrb-webfont.eot');
+    src: url('type/slkscrb-webfont.eot?#iefix') format('embedded-opentype'),
+         url('type/slkscrb-webfont.woff') format('woff'),
+         url('type/slkscrb-webfont.ttf') format('truetype'),
+         url('type/slkscrb-webfont.svg#SilkscreenBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'SilkscreenExpandedNormal';
+    src: url('type/slkscre-webfont.eot');
+    src: url('type/slkscre-webfont.eot?#iefix') format('embedded-opentype'),
+         url('type/slkscre-webfont.woff') format('woff'),
+         url('type/slkscre-webfont.ttf') format('truetype'),
+         url('type/slkscre-webfont.svg#SilkscreenExpandedNormal') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'SilkscreenExpandedBold';
+    src: url('type/slkscreb-webfont.eot');
+    src: url('type/slkscreb-webfont.eot?#iefix') format('embedded-opentype'),
+         url('type/slkscreb-webfont.woff') format('woff'),
+         url('type/slkscreb-webfont.ttf') format('truetype'),
+         url('type/slkscreb-webfont.svg#SilkscreenExpandedBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+body {
+	background-color:#111112;
+	background-image:url('img/background_wall_1.jpg');
+	background-repeat:repeat;
+}
+
+#frame {
+	z-index:100;
+	top:50px;
+	margin: 0 auto;
+	display: inline-block;
+}
+
+#frame .top {
+	background-image:url('img/frame_top.png');
+	background-repeat:repeat-x;
+	height:128px;
+}
+
+#frame .mid {
+	position:relative;
+
+}
+
+#frame .bottom {
+	background-image:url('img/frame_bottom.png');
+	background-repeat:repeat-x;
+	height:128px;
+
+}
+
+.top .topLeft {
+	float:left;
+	background-image:url('img/frame_top-left.png');
+	width:128px;
+	height:128px;
+}
+
+.top .topRight {
+	float:right;
+	background-image:url('img/frame_top-right.png');
+	width:128px;
+	height:128px;
+}
+
+.mid .left {
+	float:left;
+	background-image:url('img/frame_side-left.png');
+	background-repeat:repeat-y;
+	width:128px;
+	height:100%;
+	position: absolute;
+}
+.mid .canv {
+	width:640px;
+	height:480px;
+	margin: 0 128px;
+}
+.mid .right {
+	float:right;
+	background-image:url('img/frame_side-right.png');
+	background-repeat:repeat-y;
+	width:128px;
+	height:100%;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.bottom .bottomLeft {
+	float:left;
+	background-image:url('img/frame_bottom-left.png');
+	width:128px;
+	height:128px;
+}
+
+.bottom .bottomRight {
+	float:right;
+	background-image:url('img/frame_bottom-right.png');
+	width:128px;
+	height:128px;
+
+}
+
+
+
+
