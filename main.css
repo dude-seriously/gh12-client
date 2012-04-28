@@ -1,0 +1,123 @@
+html, body {
+	margin:0;
+	font-size:12px;
+	font-family:"Century Gothic", Tahoma, 'Lucida Sans Unicode', 'Lucida Grande', sans-serif, Arial;
+	background:#323232;
+}
+
+a {
+	color:#FF6000;
+	text-decoration:none;
+}
+
+div#top {
+	margin:32px 32px;
+	overflow:hidden;
+}
+
+div#top div#status {
+	line-height:32px;
+	height:32px;
+	font-size:24px;
+	font-family:Arial;
+	font-weight:bold;
+	color:#ff6600;
+}
+
+div#top div#users {
+	float:left;
+	width:256px;
+	height:480px;
+	margin-left:32px;
+	display:none;
+	/*background:#ddd;*/
+}
+
+div#top div#users div.row.own {
+	background:#6f6;
+}
+
+div#top div#users div.row {
+	overflow:hidden;
+	border-bottom:1px #ccc solid;
+	padding:8px;
+	background:#ddd;
+	cursor:pointer;
+}
+
+div#top div#users div.row:hover {
+	background:#fff;
+}
+
+div#top div#users div.row div.name {
+	float:left;
+}
+
+div#top div#users div.row div.score {
+	float:right;
+	color:#060;
+	margin-right:8px;
+}
+
+div#top div#users div.row div.latency {
+	float:right;
+	color:#666;
+}
+
+div#top div#userName {
+	display:none;
+}
+
+div#top div#userName input {
+	width:128px;
+	height:32px;
+	padding:0 8px;
+	border:0 none;
+	float:left;
+}
+
+div#top div#setNick {
+	width:64px;
+	height:32px;
+	font-size:14px;
+	line-height:32px;
+	text-align:center;
+	cursor:pointer;
+	margin:0 0 0 32px;
+	float:left;
+	background:#fff;
+	visibility:hidden;
+}
+
+div#log {
+	width:100%;
+}
+
+div#log div.row {
+	width:100%;
+	overflow:hidden;
+	border-bottom:1px #ccc solid;
+	background:#ddd;
+}
+div#log div.row.important {
+	background:#7cf;
+}
+div#log div.row.warning {
+	background:#fc7;
+}
+div#log div.row.error {
+	background:#f77;
+}
+div#log div.row:hover {
+	background:#fff;
+}
+
+div#log div.row div.tag {
+	width:10%;
+	float:left;
+}
+
+div#log div.row div.data {
+	width:90%;
+	float:left;
+}
