@@ -195,20 +195,6 @@ body {
 	display: inline-block;
 }
 
-#frame .topLeft {
-	float:left;
-	background-image:url('img/frame_top-left.png');
-	width:128px;
-	height:128px;
-}
-
-#frame .topRight {
-	float:right;
-	background-image:url('img/frame_top-right.png');
-	width:128px;
-	height:128px;
-}
-
 #frame .top {
 	background-image:url('img/frame_top.png');
 	background-repeat:repeat-x;
@@ -218,6 +204,27 @@ body {
 #frame .mid {
 	position:relative;
 
+}
+
+#frame .bottom {
+	background-image:url('img/frame_bottom.png');
+	background-repeat:repeat-x;
+	height:128px;
+
+}
+
+.top .topLeft {
+	float:left;
+	background-image:url('img/frame_top-left.png');
+	width:128px;
+	height:128px;
+}
+
+.top .topRight {
+	float:right;
+	background-image:url('img/frame_top-right.png');
+	width:128px;
+	height:128px;
 }
 
 .mid .left {
@@ -243,12 +250,7 @@ body {
 	top: 0;
 	right: 0;
 }
-#frame .bottom {
-	background-image:url('img/frame_bottom.png');
-	background-repeat:repeat-x;
-	height:128px;
 
-}
 .bottom .bottomLeft {
 	float:left;
 	background-image:url('img/frame_bottom-left.png');
