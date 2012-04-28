@@ -15,6 +15,12 @@ div#top {
 	overflow:hidden;
 }
 
+div#top #canv {
+	display:none;
+	float:left;
+	background:#f00;
+}
+
 div#top div#status {
 	line-height:32px;
 	height:32px;
