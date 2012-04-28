@@ -48,7 +48,8 @@ HeroContainer.prototype.Update = function(data) {
 		}
 
 		if (data.s) {
-			this.container[data.id].speed = data.s;
+			this.container[data.id].speed = 32.0 / data.s;
+			this.container[data.id].characterSprite.speed = this.container[data.id].speed;
 		}
 
 		for(var i in this.OnUpdate) {
@@ -110,7 +111,7 @@ function Hero() {
 		}
 	}
 
-	this.characterSprite = new CharacterSprite(this.x * 32, this.y * 32, new Sprite(imgPlayer, 0, -16, 32, 40, 0, 140, 3, true, 0), this.speed);
+	this.characterSprite = new CharacterSprite(this.x * 32, this.y * 32, new Sprite(imgHero, 0, -16, 32, 40, 0, 140, 3, true, 0), 32.0 / this.speed);
 }
 
 Hero.prototype.Move = function() {

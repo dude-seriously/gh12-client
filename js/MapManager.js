@@ -18,8 +18,8 @@ function MapManager (canvas_width, canvas_height, spritesheet, map_array) {
 }
 
 MapManager.prototype.DrawMap = function (context, camera_x, camera_y) {
-	for (var y = 0; y < this.map_array.length; y++) {
-		for (var x = 0; x < this.map_array[0].length; x++) {
+	for (var x = 0; x < this.map_array.length; x++) {
+		for (var y = 0; y < this.map_array[0].length; y++) {
 			var sprite = this.map_array[x][y];
 			var draw_x = -camera_x + (x*this.cell_width);
 			var draw_y = -camera_y + (y*this.cell_height) - (this.sprite_height - this.cell_height);

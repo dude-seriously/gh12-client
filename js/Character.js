@@ -7,7 +7,7 @@ function CharacterSprite(start_x, start_y, sprite, speed) {
 	this.sprite = sprite;
 	this.sprite.x = start_x;
 	this.sprite.y = start_y;
-	this.speed = 1;//speed;
+	this.speed = speed;
 
 	this.facing = 0;
 
@@ -72,10 +72,12 @@ CharacterSprite.prototype.MoveTo = function (x, y) {
 		this.SetFacing(1); // Left
 	}
 
-	if (this.target_y < this.sprite.y) {
-		this.SetFacing(3); // Up
-	} else if (this.target_y > this.sprite.y && this.facing == 3) {
-		this.SetFacing(0); // Down
+	if (Math.abs(this.target_y - this.sprite.y) > 8) {
+		if (this.target_y < this.sprite.y) {
+			this.SetFacing(3); // Up
+		} else if (this.target_y > this.sprite.y && this.facing == 3) {
+			this.SetFacing(0); // Down
+		}
 	}
 
 	if (this.IsMoving() && this.sprite.IsAnimating() == false) {
@@ -85,8 +87,6 @@ CharacterSprite.prototype.MoveTo = function (x, y) {
 
 CharacterSprite.prototype.Update = function() {
 	if (this.IsMoving()) {
-		this.speed = 3.2;
-
 		if (Math.abs(this.sprite.x-this.target_x) <= this.speed) {
 			this.sprite.x = this.target_x;
 		} else {

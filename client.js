@@ -32,8 +32,9 @@ function Client(address) {
 		this.Trigger = function(packet) {
 			if (this.callbacks[packet.type]) {
 				if (packet.type !== 'userUpdate' &&
-					packet.type !== 'mapData') {
-					
+					packet.type !== 'mapData' &&
+					packet.type !== 'heroUpdate') {
+
 					Log('packet', 'received: ' + JSON.stringify(packet));
 				}
 				for(var i in this.callbacks[packet.type]) {
