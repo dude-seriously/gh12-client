@@ -31,6 +31,10 @@ Sprite.prototype.Draw = function (context) {
 	context.drawImage(this.spritesheet, this.current_frame*this.dw, this.row*this.dh, this.dw, this.dh, this.x, this.y, this.dw, this.dh);
 }
 
+Sprite.prototype.IsAnimating = function () {
+	return this.animating;
+}
+
 Sprite.prototype.StartAnimation = function () {
 	if (!this.animating) {
         this.animating = true;

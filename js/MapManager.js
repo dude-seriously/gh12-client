@@ -1,5 +1,5 @@
 /*
-	The Sprite class for animated sprites using spritesheets
+	The Map Manager class for animated sprites using spritesheets
 	Author: Maciej Baron
 */
 
