@@ -14,8 +14,12 @@ div#top {
 	overflow:hidden;
 }
 
-div#top #canv {
+div#frame {
 	display:none;
+	float:left;
+}
+
+div#top #canv {
 	float:left;
 	background:#f00;
 }
