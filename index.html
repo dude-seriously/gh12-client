@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>WebSocket</title>
+		<meta http-equiv='Content-Type' content='txt/html; charset=utf-8' />
+
+		<link rel='stylesheet' type='text/css' href='main.css' />
+		<script type='text/javascript' src='jquery-1.4.3.min.js'></script>
+		<script type='text/javascript' src='log.js'></script>
+		<script type='text/javascript' src='client.js'></script>
+		<script type='text/javascript' src='packet.js'></script>
+		<script type='text/javascript' src='users.js'></script>
+		
+		<script type='text/javascript'>
+			var client = null;
+			//var self = null;
+			var initialized = false;
+			
+			var nick = "guest";
+			var nickValid = false;
+			
+			$(document).ready(function() {
+				$logElement = $('div#log');
+				Log('system', 'begin');
+				
+				$('div#top div#status').html('connecting..');
+				
+				client = new Client("ws://10.10.2.39:8080/");
+				
+				if (!client.socket) {
+					$('div#top div#status').html('WebSockets not supported, use Firefox, Chrome or Safari');
+				}
+				
+				client.OnTimeout = function() {
+					$('div#top div#status').html('could not connect to server');
+				}
+				
+				client.OnDisconnect = function() {
+					$('div#top div#status').html('disconnected');
+					$('div#top div#status').css('display', 'block');
+					$('div#top div#users').css('display', 'none');
+				}
+				
+				client.OnConnect = function() {
+					if (!initialized) {
+						initialized = true;
+						
+						$('div#top div#status').html('connected');
+						$('div#top div#status').css('display', 'none');
+						$('div#top div#userName').css('display', 'block');
+						//$('div#top div#users').css('display', 'block');
+						
+						client.AddCallBack('welcome', function(data) {
+							LogI('welcome', data.message);
+						});
+						
+						InitUsers();
+						
+						userContainer.AddEventOnAdd(function(user) {
+							var row = $('<div class="row" id="user_' + user.id + '"></div>');
+							var name = $('<div class="name">' + user.name + '</div>');
+							var score = $('<div class="score">' + (user.score ? user.score : '0') + '</div>');
+							var latency = $('<div class="latency">' + (user.latency ? user.latency : '-') + '</div>');
+							
+							row.append(name);
+							row.append(latency);
+							row.append(score);
+							$('div#users').append(row);
+							//$('div#users').append($('<div class="row" id="user_' + user.id + '"><div class="name">' + user.name + '</div><div class="score">' + user.k + ' / ' + user.d + '</div></div>'));
+						});
+						
+						userContainer.AddEventOnUpdate(function(user) {
+							$('div#users').find('div#user_' + user.id + ' div.name').html(user.name);
+							$('div#users').find('div#user_' + user.id + ' div.score').html(user.score);
+							$('div#users').find('div#user_' + user.id + ' div.latency').html(user.latency);
+						});
+						
+						userContainer.AddEventOnRemove(function(user) {
+							$('div#users div#user_' + user.id).remove();
+						});
+						
+						MyselfSet = function() {
+							if (myself) {
+								$('div#users div#user_' + myself.id).addClass('own');
+							} else {
+								$('div#users').removeClass('own');
+							}
+						}
+						
+						$('#nick').keyup(function() {
+							var nickTmp = $(this).val();
+							if (nickTmp.length >= 4 && nickTmp.length <= 8) {
+								var pat = /^[a-zA-Z]+$/g;
+								if (pat.test(nickTmp)) {
+									nick = nickTmp;
+									nickValid = true;
+									$('#setNick').css('visibility', 'visible');
+								} else {
+									nickValid = false;
+									$('#setNick').css('visibility', 'hidden');
+								}
+							} else {
+								nickValid = false;
+								$('#setNick').css('visibility', 'hidden');
+							}
+						});
+
+						$('#setNick').click(function() {
+							if (nickValid) {
+								client.Send(JSON.stringify({ type:"userSetName", n:nick }));
+							}
+						});
+
+						/*
+						var packet = new Object();
+						packet.type = "characterSetDirection";
+						packet.id = character.id;
+						packet.nX = character.nX;
+						packet.nY = character.nY;
+						client.Send(JSON.stringify(packet));
+						*/
+					}
+				}
+			});
+		</script>
+	</head>
+	<body>
+		<div id="top">
+			<div id="status"></div>
+			<div id="userName">
+				<input id="nick" type="text" />
+				<div id="setNick">Set</div>
+			</div>
+			<div id="users"></div>
+		</div>
+		<div id="log"></div>
+	</body>
+</html>
