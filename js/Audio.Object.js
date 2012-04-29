@@ -28,18 +28,20 @@ Audio.Object = function (parameters, obj) {
 
 Audio.Object.prototype.constructor = Audio.Object; 
 
+
+
 Audio.Object.prototype.update = function() {
 
-
-	this.oldSoundPosition.copy( this.soundPosition );
-	this.soundPosition = {x:this.obj.getX(), y:this.obj.getY(), z:0};
-	this.soundPosition.copy( this.obj.getPosition() );
-	this.soundDelta.sub( this.soundPosition, this.oldSoundPosition );
+	this.oldSoundPosition = this.soundPosition;
+	var newPos = {x:this.obj.x, y:this.obj.y, z:0};
+	this.soundPosition = newPos;
+	this.soundDelta = {x:this.soundPosition.x - this.oldSoundPosition.x, y:this.soundPosition.y - this.oldSoundPosition.y, z:this.soundPosition.z - this.oldSoundPosition.z };
 	this.panner.setPosition( this.soundPosition.x, this.soundPosition.y, 0 );
 	this.panner.setVelocity( this.soundDelta.x, this.soundDelta.y, 0 );
 
-
 };
+
+
 
 Audio.Object.prototype.walk = function () {
 
@@ -54,11 +56,11 @@ Audio.Object.prototype.walk = function () {
 	this.step2.loop = false;
 
 
-	this.scene.loadBuffer('footstep1', function(buffer){
+	this.scene.loadBuffer('snd/footstep1.wav', function(buffer){
 		self.step1.buffer = buffer;		     
 	});
 
-	this.scene.loadBuffer('footstep2', function(buffer){
+	this.scene.loadBuffer('snd/footstep2.wav', function(buffer){
 		self.step2.buffer = buffer;		     
 	});
 
