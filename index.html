@@ -117,8 +117,8 @@
 				
 				$('div#top div#status').html('connecting..');
 				
-				//client = new Client("ws://10.10.2.39:8080/");
-				client = new Client("ws://10.10.2.42:8080/");
+				client = new Client("ws://10.10.2.39:8080/");
+				//client = new Client("ws://10.10.2.42:8080/");
 				
 				if (!client.socket) {
 					$('div#top div#status').html('WebSockets not supported, use Firefox, Chrome or Safari');
