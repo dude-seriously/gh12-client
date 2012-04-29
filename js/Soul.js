@@ -1,4 +1,5 @@
-function Soul (x, y) {
+function Soul (id, x, y) {
+	this.id = id;
 	this.x = x;
 	this.y = y;
 	this.start_y = y;
@@ -31,5 +32,10 @@ Soul.prototype.Draw() = function() {
 }
 
 Soul.prototype.AfterCollection() = function() {
-	// Stuff to do after collection
+	soulContainer[this.id] = null;
+}
+
+soulContainer.AddSoul =  function(id, x, y) {
+	var soul = new Soul(id, x, y);
+	this[id] = soul;
 }

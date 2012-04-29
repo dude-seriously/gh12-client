@@ -33,6 +33,11 @@ GameLoop.prototype.Update = function() {
 		}
 	}
 
+	for (var i in soulContainer) {
+		soulContainer[i].Update();
+		soulContainer[i].Draw();
+	}
+
 	if (map) {
 		var cell = map.Pick(MouseToWorld());
 
