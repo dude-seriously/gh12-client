@@ -24,9 +24,9 @@
 		
 		<script type='text/javascript'>
 
-			//var audio = new Audio.Scene();
-			// var audioTheme = new Audio.Theme({scene: audio, stream: 'snd/eleven_tigers_-_pixelguard_theme.mp3', volume : 0.9});
-			// 	//audioTheme.play();
+			var audio = new Audio.Scene();
+			var audioTheme = new Audio.Theme({scene: audio, stream: 'snd/eleven_tigers_-_pixelguard_theme.mp3', volume : 0.6});
+			
 
 			var client = null;
 			var width = 0;
@@ -69,6 +69,7 @@
 			var mouseClick = false;
 
 			var deadBodies = new Array();
+
 			
 			$(document).ready(function() {
 
@@ -107,7 +108,7 @@
 				$('div#top div#status').html('connecting..');
 				
 				//client = new Client("ws://10.10.2.39:8080/");
-				client = new Client("ws://10.10.2.39:8080/");
+				client = new Client("ws://10.10.2.42:8080/");
 				
 				if (!client.socket) {
 					$('div#top div#status').html('WebSockets not supported, use Firefox, Chrome or Safari');
@@ -138,6 +139,8 @@
 						
 
 						loop.Run();
+
+						
 
 						client.AddCallBack('welcome', function(data) {
 							LogI('welcome', data.message);
@@ -230,6 +233,7 @@
 						$('#setNick').click(function() {
 							if (nickValid) {
 								client.Send(JSON.stringify({ type:"userSetName", n:nick }));
+								audioTheme.play();
 							}
 						});
 

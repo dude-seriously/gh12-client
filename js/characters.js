@@ -128,7 +128,7 @@ function Character() {
 	}
 
 	this.characterSprite = new CharacterSprite(this.x * 32, this.y * 32, new Sprite(imgPlayer, 0, -24, 32, 52, 0, 350, 3, true, 0), (32.0 / (this.speed + 1)) * spF);
-	// this.sound = new Audio.Object({x:this.x, y:this.y, z:0}, this);
+	this.sound = new Audio.Object({x:this.x, y:this.y, z:0}, this);
 }
 
 Character.prototype.Position = function() {
@@ -140,8 +140,8 @@ Character.prototype.Position = function() {
 
 Character.prototype.Move = function() {
 	this.characterSprite.MoveTo(this.x * 32, this.y * 32);
-	// this.sound.update();
-	// this.sound.walk();
+	this.sound.update();
+	this.sound.walk();
 }
 
 function InitCharacters() {

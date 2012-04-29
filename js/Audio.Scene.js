@@ -3,12 +3,12 @@
  */
 
 
-Audio.Scene = function (camera) {
+Audio.Scene = function () {
 
     var self = this;
 
     this.context = new webkitAudioContext();
-    this.camera = camera;
+    this.camera = {x:0, y:0, z:0};
 
     this.convolver = this.context.createConvolver();
     this.convolverGain = this.context.createGainNode();
@@ -83,12 +83,14 @@ Audio.Scene = function (camera) {
 
     this.update = function() {
 
-        oldCameraPosition.copy( cameraPosition );
-        cameraPosition.copy( this.camera.getPosition());
-        cameraDelta.sub( cameraPosition, oldCameraPosition );
+        oldCameraPosition = cameraPosition;
+        var newPos =  {x:this.camera.x, y:this.camera.y, z:0};
+        cameraPosition = newPos;
+        var deltaX = cameraPosition.x - oldCameraPosition.x, deltaY = cameraPosition.y - oldCameraPosition.y;
+        cameraDelta = {x:deltaX, y:deltaY, z:0};
         this.context.listener.setPosition( cameraPosition.x, cameraPosition.y, cameraPosition.z );
-        this.context.listener.setVelocity( cameraDelta.x, cameraDelta.y, cameraDelta.z );
-       
+        this.context.listener.setVelocity( cameraDelta.x, cameraDelta.y, cameraDelta.z);
+        
     };
 
     // this.loadSound('footstep1');

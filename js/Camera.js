@@ -5,6 +5,9 @@ function CameraUpdate () {
 
 	cameraX = my_x + ((myself.character.characterSprite.sprite.dw)/2) + Math.round((mouseX - canvas.width/2) / 3.75) - canvas.width/2;
 	cameraY = my_y + ((myself.character.characterSprite.sprite.dh)/2) + Math.round((mouseY - canvas.height/2) / 3.75) - canvas.height/2;
+	audio.camera.x = mouseX - canvas.width/2
+	audio.camera.y = mouseY - canvas.height/2
+	audio.update();
 }
 
 function ScreenToWorld(x, y) {
