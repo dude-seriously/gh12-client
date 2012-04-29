@@ -11,7 +11,6 @@ function HeroContainer() {
 HeroContainer.prototype.Add = function(data) {
 	if (!this.container[data.id]) {
 		this.container[data.id] = new Hero({ id:data.id, x:data.x, y:data.y, speed:data.s, health:data.h, evil:data.e, type:data.t, attacking:data.a, attackSpeed:data.as, attackDamage:data.ad });
-		console.log(data.e);
 		
 		for(var i in this.OnAdd) {
 			this.OnAdd[i](this.container[data.id]);
@@ -57,8 +56,13 @@ HeroContainer.prototype.Update = function(data) {
 			this.container[data.id].health = data.h;
 		}
 
-		if (data.a) {
+		if (typeof(data.a) != 'undefined') {
 			this.container[data.id].attacking = data.a;
+			if (this.container[data.id].attacking) {
+				this.container[data.id].characterSprite.StartAttacking();
+			} else {
+				this.container[data.id].characterSprite.StopAttacking();
+			}
 		}
 
 		for(var i in this.OnUpdate) {

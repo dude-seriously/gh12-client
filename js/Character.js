@@ -124,13 +124,13 @@ CharacterSprite.prototype.StartAttacking = function() {
 	switch (this.facing) {
 		case 0:
 		case 1:
-			this.row = 3;
+			this.sprite.row = 3;
 			break;
 		case 2:
-			this.row = 4;
+			this.sprite.row = 4;
 			break;
 		case 3:
-			this.row = 5;
+			this.sprite.row = 5;
 		break;
 	}
 
