@@ -80,14 +80,7 @@ Audio.Scene = function (camera) {
        
     };
 
-    
-      this.loadEnvironment("coldwind");
-      this.loadEnvironment('torch');
-      this.loadEnvironment('pipeinhale');
-      this.loadEnvironment('strumharp');
-    
-      console.log(environments);
-      console.log(environments['coldwind']);
+
     
 
 
