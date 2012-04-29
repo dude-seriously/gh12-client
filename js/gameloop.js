@@ -13,6 +13,8 @@ GameLoop.prototype.Update = function() {
 
 	ctx.clearRect(0, 0, width, height);
 
+	CameraUpdate();
+
 	if (myself) {
 		if (myself.character) {
 			//cameraX = myself.character.x * 32;

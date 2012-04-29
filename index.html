@@ -10,6 +10,7 @@
 		<script type='text/javascript' src='client.js'></script>
 		<script type='text/javascript' src='packet.js'></script>
 		<script type='text/javascript' src='users.js'></script>
+		<script type='text/javascript' src='js/Camera.js'></script>
 		<script type='text/javascript' src='js/MapManager.js'></script>
 		<script type='text/javascript' src='js/Sprite.js'></script>
 		<script type='text/javascript' src='js/Character.js'></script>
@@ -47,6 +48,9 @@
 			var keyD = 0;
 
 			var dir = 0;
+
+			var mouseX = 0;
+			var mouseY = 0;
 			
 			$(document).ready(function() {
 				var canvas = document.getElementById("canv");
@@ -196,6 +200,8 @@
 						});
 
 						$("#canv").mousemove(function (event) {
+							mouseX = event.pageX;
+							mouseY = event.pageY;
 					        //cameraX = 
 					        //map.DrawMap(ctx, (event.pageX - $("#canv").offset().left) - (width / 2), (event.pageY - $("#canv").offset().top) - (height / 2));
 					    });
