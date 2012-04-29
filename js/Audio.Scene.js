@@ -91,8 +91,8 @@ Audio.Scene = function (camera) {
        
     };
 
-    this.loadSound('footstep1');
-    this.loadSound('footstep2');
+    // this.loadSound('footstep1');
+    // this.loadSound('footstep2');
 
 
     
