@@ -38,6 +38,15 @@
 
 			var cameraX = 0;
 			var cameraY = 0;
+
+			var spF = 0.5;
+
+			var keyW = 0;
+			var keyS = 0;
+			var keyA = 0;
+			var keyD = 0;
+
+			var dir = 0;
 			
 			$(document).ready(function() {
 
@@ -133,7 +142,13 @@
 
 						InitHeroes();
 
+<<<<<<< HEAD
 						
+=======
+						var audio = new Audio.Scene();
+						/*var audioTheme = new Audio.Theme({scene: audio, stream: 'snd/eleven_tigers_-_pixelguard_theme.mp3', volume : 0.9});
+						audioTheme.play();*/
+>>>>>>> 237fdb3ca6178a69a89af286f93d991b6ae96a17
 						
 						userContainer.AddEventOnAdd(function(user) {
 							var row = $('<div class="row" id="user_' + user.id + '"></div>');
@@ -203,6 +218,51 @@
 						packet.nY = character.nY;
 						client.Send(JSON.stringify(packet));
 						*/
+
+
+						$(window).keydown(function(event) {
+							//if (character && mouse.over) {
+								switch(event.keyCode) {
+									case 87: // w
+										keyW = 1;
+										break;
+									case 83: // s
+										keyS = 1;
+										break;
+									case 65: // a
+										keyA = 1;
+										break;
+									case 68: // d
+										keyD = 1;
+										break;
+								}
+								
+							//	UpdateMovement();
+							//} else {
+								return true;
+							//}
+						});
+						
+						$(window).keyup(function(event) {
+							switch(event.keyCode) {
+								case 87: // w
+									keyW = 0;
+									break;
+								case 83: // s
+									keyS = 0;
+									break;
+								case 65: // a
+									keyA = 0;
+									break;
+								case 68: // d
+									keyD = 0;
+									break;
+							}
+							
+							//UpdateMovement();
+							
+							return true;
+						});
 					}
 				}
 			});

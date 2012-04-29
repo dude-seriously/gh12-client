@@ -54,7 +54,7 @@ CharContainer.prototype.Update = function(data) {
 		}
 
 		if (data.s) {
-			this.container[data.id].speed = 32.0 / data.s;
+			this.container[data.id].speed = (32.0 / (data.s + 1)) * spF;
 			this.container[data.id].characterSprite.speed = this.container[data.id].speed;
 		}
 
@@ -124,7 +124,7 @@ function Character() {
 	this.user = userContainer.Get(this.id);
 	this.user.character = this;
 
-	this.characterSprite = new CharacterSprite(this.x * 32, this.y * 32, new Sprite(imgPlayer, 0, -24, 32, 52, 0, 140, 3, true, 0), 32.0 / this.speed);
+	this.characterSprite = new CharacterSprite(this.x * 32, this.y * 32, new Sprite(imgPlayer, 0, -24, 32, 52, 0, 140, 3, true, 0), (32.0 / this.speed) * spF);
 }
 
 Character.prototype.Position = function() {
