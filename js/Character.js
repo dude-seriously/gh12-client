@@ -85,6 +85,7 @@ CharacterSprite.prototype.MoveTo = function (x, y) {
 	if (this.IsMoving() && this.sprite.IsAnimating() == false) {
 		this.sprite.StartAnimation();
 	}
+
 }
 
 CharacterSprite.prototype.Update = function() {

@@ -12,6 +12,7 @@ CharContainer.prototype.Add = function(data) {
 	if (!this.container[data.id]) {
 		this.container[data.id] = new Character({ id:data.id, enabled:data.e, x:data.x, y:data.y, speed:data.s });
 		
+		
 		for(var i in this.OnAdd) {
 			this.OnAdd[i](this.container[data.id]);
 		}
@@ -125,6 +126,7 @@ function Character() {
 	this.user.character = this;
 
 	this.characterSprite = new CharacterSprite(this.x * 32, this.y * 32, new Sprite(imgPlayer, 0, -24, 32, 52, 0, 140, 3, true, 0), (32.0 / (this.speed + 1)) * spF);
+	this.sound = new Audio.Object({this.x, this.y, z:0}, this);
 }
 
 Character.prototype.Position = function() {

@@ -21,13 +21,14 @@ Audio.Scene = function (camera) {
     this.convolver.connect(this.convolverGain);
     this.flatGain.connect(this.volume);
     this.convolverGain.connect(this.volume);
-    this.compressor = this.context.createDynamicsCompressor();
-    this.compressor.threshold.value = -1;
-    this.compressor.ratio.value = 2;
-    this.volume.connect(this.compressor);
-    this.compressor.connect(this.context.destination);
+    // this.compressor = this.context.createDynamicsCompressor();
+    // this.compressor.threshold.value = -1;
+    // this.compressor.ratio.value = 2;
+    // this.volume.connect(this.compressor);
+    this.volume.connect(this.context.destination);
 
     var environments = new Object();
+    var sounds = new Object();
 
     var cameraPosition, oldCameraPosition, cameraDelta;
     			
@@ -42,6 +43,16 @@ Audio.Scene = function (camera) {
         };
         request.send();
         return request;
+    };
+
+    this.loadSound = function(name){
+
+        this.loadBuffer('snd/'+name+'.wav', function(buffer) {
+            sounds[name] = buffer;
+            console.log(sounds[name]);
+            
+        });
+
     };
 
     this.loadEnvironment = function(name) {
@@ -79,6 +90,9 @@ Audio.Scene = function (camera) {
         this.context.listener.setVelocity( cameraDelta.x, cameraDelta.y, cameraDelta.z );
        
     };
+
+    this.loadSound('footstep1');
+    this.loadSound('footstep2');
 
 
     
