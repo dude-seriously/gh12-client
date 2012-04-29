@@ -86,6 +86,7 @@ CharacterSprite.prototype.MoveTo = function (x, y) {
 			this.sprite.StartAnimation();
 		}
 	}
+
 }
 
 CharacterSprite.prototype.Update = function() {
