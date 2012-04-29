@@ -13,6 +13,8 @@ function CharacterSprite(start_x, start_y, sprite, speed) {
 
 	this.target_x = start_x;
 	this.target_y = start_y;
+
+	this.attacking = false;
 }
 
 CharacterSprite.prototype.GetX = function () {
@@ -107,8 +109,37 @@ CharacterSprite.prototype.Update = function() {
 			}
 		}
 
-		if (!this.IsMoving() && this.sprite.IsAnimating()) {
+		if (!this.IsMoving() && this.sprite.IsAnimating() && !this.attacking) {
 			this.sprite.StopAnimation();
+			this.sprite.current_frame = 1;
 		}
 	}
+}
+
+CharacterSprite.prototype.StartAttacking() {
+	this.attacking = true;
+
+	switch (this.GetFacing()) {
+		case 0:
+		case 1:
+			this.row = 3;
+			break;
+		case 2:
+			this.row = 4;
+			break;
+		case 3:
+			this.row = 5;
+		break;
+	}
+
+	if (this.sprite.IsAnimating() == false) {
+		this.sprite.StartAnimation();
+	}
+}
+
+CharacterSprite.prototype.StopAttacking() {
+	this.attacking = false;
+	this.sprite.StopAnimation();
+	this.sprite.current_frame = 1;
+	this.SetFacing(this.facing); // Reset facing and row
 }
