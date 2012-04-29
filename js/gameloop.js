@@ -60,8 +60,6 @@ GameLoop.prototype.Update = function() {
 
 				var offset = Math.round(6 + (Math.sin(n/500 + (i*40)) * 6));
 
-				console.log(offset);
-
 				userContainer.container[i].character.characterSprite.sprite.oy = -offset;
 				// Finish ghost animation
 
