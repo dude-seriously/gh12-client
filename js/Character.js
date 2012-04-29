@@ -67,23 +67,24 @@ CharacterSprite.prototype.Draw = function (context) {
 CharacterSprite.prototype.MoveTo = function (x, y) {
 	this.target_x = x;
 	this.target_y = y;
-
-	if (this.target_x > this.sprite.x) {
-		this.SetFacing(2); // Right
-	} else if (this.target_x < this.sprite.x) {
-		this.SetFacing(1); // Left
-	}
-
-	if (Math.abs(this.target_y - this.sprite.y) > 8) {
-		if (this.target_y < this.sprite.y) {
-			this.SetFacing(3); // Up
-		} else if (this.target_y > this.sprite.y && this.facing == 3) {
-			this.SetFacing(0); // Down
+	if (!this.attacking) {
+		if (this.target_x > this.sprite.x) {
+			this.SetFacing(2); // Right
+		} else if (this.target_x < this.sprite.x) {
+			this.SetFacing(1); // Left
 		}
-	}
 
-	if (this.IsMoving() && this.sprite.IsAnimating() == false) {
-		this.sprite.StartAnimation();
+		if (Math.abs(this.target_y - this.sprite.y) > 8) {
+			if (this.target_y < this.sprite.y) {
+				this.SetFacing(3); // Up
+			} else if (this.target_y > this.sprite.y && this.facing == 3) {
+				this.SetFacing(0); // Down
+			}
+		}
+
+		if (this.IsMoving() && this.sprite.IsAnimating() == false) {
+			this.sprite.StartAnimation();
+		}
 	}
 }
 
@@ -119,7 +120,7 @@ CharacterSprite.prototype.Update = function() {
 CharacterSprite.prototype.StartAttacking = function() {
 	this.attacking = true;
 
-	switch (this.GetFacing()) {
+	switch (this.facing) {
 		case 0:
 		case 1:
 			this.row = 3;
