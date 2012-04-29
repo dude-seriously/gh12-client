@@ -13,18 +13,37 @@ GameLoop.prototype.Update = function() {
 
 	ctx.clearRect(0, 0, width, height);
 
-	CameraUpdate();
-
 	if (myself) {
-		if (myself.character) {
-			//cameraX = myself.character.x * 32;
-			//cameraY = myself.character.y * 32;
+		if (myself.character && myself.character.enabled) {
+			CameraUpdate();
 		}
 	}
 
-	if (mapTiles.complete) {
-		if (map) {
-			map.DrawMap(ctx, cameraX, cameraY);
+	if (mapTiles.complete && map) {
+		map.DrawMap(ctx, cameraX, cameraY);
+	}
+
+	if (map) {
+		var cell = map.Pick(MouseToWorld());
+
+		if (cell) {
+			if (mouseClick) {
+				var packet = new Packet();
+				packet.type = "mobSpawn";
+				packet.x = cell.x;
+				packet.y = cell.y;
+				client.Send(JSON.stringify(packet));
+			}
+
+			cell.x = cell.x * 32;
+			cell.y = cell.y * 32;
+			cell = WorldToScreen(cell);
+			ctx.beginPath();
+			ctx.rect(cell.x, cell.y, 32, 32);
+			ctx.fillStyle = "rgba(255,96,0,.2)";
+			ctx.strokeStyle = "#ff6600"
+			ctx.fill();
+			ctx.stroke();
 		}
 	}
 
@@ -67,4 +86,6 @@ GameLoop.prototype.Update = function() {
 		packet.d = dir;
 		client.Send(JSON.stringify(packet));
 	}
+
+	mouseClick = false;
 }

@@ -21,7 +21,8 @@ div#frame {
 
 div#top #canv {
 	float:left;
-	background:#f00;
+	background:#323232;
+	cursor:none;
 }
 
 div#top div#status {

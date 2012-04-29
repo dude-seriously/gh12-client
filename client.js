@@ -34,7 +34,8 @@ function Client(address) {
 				if (packet.type !== 'userUpdate' &&
 					packet.type !== 'mapData' &&
 					packet.type !== 'heroUpdate' &&
-					packet.type !== 'charUpdate') {
+					packet.type !== 'charUpdate' &&
+					packet.type !== 'heroRemove') {
 
 					Log('packet', 'received: ' + JSON.stringify(packet));
 				}

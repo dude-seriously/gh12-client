@@ -40,6 +40,9 @@
 			var cameraX = 0;
 			var cameraY = 0;
 
+			var canvasX;
+			var canvasY;
+
 			var spF = 0.5;
 
 			var keyW = 0;
@@ -51,6 +54,8 @@
 
 			var mouseX = 0;
 			var mouseY = 0;
+
+			var mouseClick = false;
 			
 			$(document).ready(function() {
 
@@ -60,6 +65,9 @@
 
 				var canvas = document.getElementById("canv");
 				ctx = canvas.getContext("2d");
+
+				canvasX = $(canvas).offset().left;
+				canvasY = $(canvas).offset().top;
 
 				width = canvas.width;
 				height = canvas.height;
@@ -119,6 +127,9 @@
 							$('div#top div#userName').css('display', 'none');
 							$('div#top div#users').css('display', 'block');
 							$('div#top #frame').css('display', 'block');
+
+							canvasX = $("#canv").offset().left;
+							canvasY = $("#canv").offset().top;
 						});
 
 						client.AddCallBack('mapData', function(data) {
@@ -202,22 +213,14 @@
 							}
 						});
 
+						$("#canv").click(function() {
+							mouseClick = true;
+						});
+
 						$("#canv").mousemove(function (event) {
-							mouseX = event.pageX;
-							mouseY = event.pageY;
-					        //cameraX = 
-					        //map.DrawMap(ctx, (event.pageX - $("#canv").offset().left) - (width / 2), (event.pageY - $("#canv").offset().top) - (height / 2));
+							mouseX = event.pageX - canvasX;
+							mouseY = event.pageY - canvasY;
 					    });
-
-						/*
-						var packet = new Object();
-						packet.type = "characterSetDirection";
-						packet.id = character.id;
-						packet.nX = character.nX;
-						packet.nY = character.nY;
-						client.Send(JSON.stringify(packet));
-						*/
-
 
 						$(window).keydown(function(event) {
 							//if (character && mouse.over) {

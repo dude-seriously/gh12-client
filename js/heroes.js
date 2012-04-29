@@ -98,7 +98,6 @@ HeroContainer.prototype.AddEventOnRemove = function(func) {
 }
 
 function Hero() {
-	console.log("NEW HERO");
 	this.id = 0;
 
 	this.x = 0;
