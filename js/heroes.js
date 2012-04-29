@@ -10,7 +10,8 @@ function HeroContainer() {
 
 HeroContainer.prototype.Add = function(data) {
 	if (!this.container[data.id]) {
-		this.container[data.id] = new Hero({ id:data.id, x:data.x, y:data.y, speed:data.s });
+		this.container[data.id] = new Hero({ id:data.id, x:data.x, y:data.y, speed:data.s, health:data.h, evil:data.e, type:data.t, attacking:data.a, attackSpeed:data.as, attackDamage:data.ad });
+		console.log(data.e);
 		
 		for(var i in this.OnAdd) {
 			this.OnAdd[i](this.container[data.id]);
@@ -50,6 +51,14 @@ HeroContainer.prototype.Update = function(data) {
 		if (data.s) {
 			this.container[data.id].speed = (32.0 / data.s) * spF;
 			this.container[data.id].characterSprite.speed = this.container[data.id].speed;
+		}
+
+		if (data.h) {
+			this.container[data.id].health = data.h;
+		}
+
+		if (data.a) {
+			this.container[data.id].attacking = data.a;
 		}
 
 		for(var i in this.OnUpdate) {
@@ -110,7 +119,11 @@ function Hero() {
 		}
 	}
 
-	this.characterSprite = new CharacterSprite(this.x * 32, this.y * 32, new Sprite(imgHero, 0, -16, 32, 40, 0, 140, 3, true, 0), (32.0 / this.speed) * spF);
+	if (this.evil) {
+		this.characterSprite = new CharacterSprite(this.x * 32, this.y * 32, new Sprite(imgZombie, 0, -16, 32, 40, 0, 140, 3, true, 0), (32.0 / this.speed) * spF);
+	} else {
+		this.characterSprite = new CharacterSprite(this.x * 32, this.y * 32, new Sprite(imgHero, 0, -16, 32, 40, 0, 140, 3, true, 0), (32.0 / this.speed) * spF);
+	}
 }
 
 Hero.prototype.Move = function() {
