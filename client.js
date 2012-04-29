@@ -33,7 +33,8 @@ function Client(address) {
 			if (this.callbacks[packet.type]) {
 				if (packet.type !== 'userUpdate' &&
 					packet.type !== 'mapData' &&
-					packet.type !== 'heroUpdate') {
+					packet.type !== 'heroUpdate' &&
+					packet.type !== 'charUpdate') {
 
 					Log('packet', 'received: ' + JSON.stringify(packet));
 				}
