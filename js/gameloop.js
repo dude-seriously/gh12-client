@@ -33,6 +33,13 @@ GameLoop.prototype.Update = function() {
 		}
 	}
 
+	for (var i in soulContainer.container) {
+		if (soulContainer.container[i] && soulContainer.container[i] != null) {
+			//soulContainer.container[i].Update();
+			soulContainer.container[i].Draw();
+		}
+	}
+
 	if (map) {
 		var cell = map.Pick(MouseToWorld());
 
@@ -45,11 +52,10 @@ GameLoop.prototype.Update = function() {
 				client.Send(JSON.stringify(packet));
 			}
 
-			cell.x = cell.x * 32;
-			cell.y = cell.y * 32;
-			cell = WorldToScreen(cell);
+			var cl = { x:cell.x * 32, y:cell.y * 32 }
+			cl = WorldToScreen(cl);
 			ctx.beginPath();
-			ctx.rect(cell.x, cell.y, 32, 32);
+			ctx.rect(cl.x, cl.y, 32, 32);
 			ctx.fillStyle = "rgba(255,96,0,.2)";
 			ctx.strokeStyle = "#ff6600"
 			ctx.fill();
@@ -58,6 +64,25 @@ GameLoop.prototype.Update = function() {
 	}
 
 
+	if (imgShadow.complete) {
+		ctx.globalAlpha = 0.4;
+
+		for (var i in userContainer.container) {
+			if (userContainer.container[i] != null && userContainer.container[i].character) {
+				if (userContainer.container[i].character.enabled) {
+					ctx.drawImage(imgShadow, 0, 0, 10, 10, userContainer.container[i].character.characterSprite.sprite.x - cameraX, userContainer.container[i].character.characterSprite.sprite.y - cameraY + 40, 32, 24);
+				}
+			}
+		}
+
+		for (var i in heroContainer.container) {
+			if (heroContainer.container[i] != null) {
+				ctx.drawImage(imgShadow, 0, 0, 10, 10, heroContainer.container[i].characterSprite.sprite.x - cameraX, heroContainer.container[i].characterSprite.sprite.y - cameraY + 10, 32, 24);
+			}
+		}
+
+		ctx.globalAlpha = 1;
+	}
 
 	for (var i in userContainer.container) {
 		if (userContainer.container[i] != null && userContainer.container[i].character) {
@@ -75,7 +100,7 @@ GameLoop.prototype.Update = function() {
 				userContainer.container[i].character.characterSprite.sprite.oy = -offset;
 				// Finish ghost animation
 
-				userContainer.container[i].character.characterSprite.sprite.Draw(ctx);
+				//userContainer.container[i].character.characterSprite.sprite.Draw(ctx);
 
 				
 			}
@@ -85,8 +110,50 @@ GameLoop.prototype.Update = function() {
 	for (var i in heroContainer.container) {
 		if (heroContainer.container[i] != null) {
 			heroContainer.container[i].characterSprite.Update();
-			heroContainer.container[i].characterSprite.sprite.Draw(ctx);
+			//heroContainer.container[i].characterSprite.sprite.Draw(ctx);
 		}
+	}
+
+	var sortedCharacters = new Array();
+
+	for (var i in userContainer.container) {
+		if (userContainer.container[i] != null && userContainer.container[i].character) {
+			if (userContainer.container[i].character.enabled) {
+				sortedCharacters.push(userContainer.container[i].character.characterSprite);
+			}
+		}
+	}
+
+	for (var i in heroContainer.container) {
+		if (heroContainer.container[i] != null) {
+			sortedCharacters.push(heroContainer.container[i].characterSprite);
+		}
+	}
+
+	sortedCharacters.sort(function(a, b) {
+		return (a.sprite.y + a.sprite.oy - b.sprite.y + b.sprite.oy);
+	});
+
+	for(var i in sortedCharacters) {
+		sortedCharacters[i].Draw(ctx);
+	}
+
+	if (cell) {
+		ctx.beginPath()
+		for (var i in heroContainer.container) {
+			if (heroContainer.container[i] != null &&
+				heroContainer.container[i].x > (cell.x - 2) &&
+				heroContainer.container[i].x < (cell.x + 2) &&
+				heroContainer.container[i].y > (cell.y - 2) &&
+				heroContainer.container[i].y < (cell.y + 2)) {
+
+				for(var h = 0; h < heroContainer.container[i].health; ++h) {
+					ctx.rect(heroContainer.container[i].characterSprite.sprite.x + heroContainer.container[i].characterSprite.sprite.dw / 2 + (h * 6 - 15) - cameraX, heroContainer.container[i].characterSprite.sprite.y - cameraY - 24, 4, 4);
+				}
+			}
+		}
+		ctx.fillStyle = "#f00";
+		ctx.fill();
 	}
 
 

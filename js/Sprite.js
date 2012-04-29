@@ -31,6 +31,9 @@ Sprite.prototype.SetLocation = function (x, y) {
 
 Sprite.prototype.Draw = function (context, x, y) {
 	if (this.spritesheet.complete) {
+		//if (this.spritesheet == imgSoul) {
+			//console.log(this);
+		//}
 		context.drawImage(this.spritesheet, this.current_frame*this.dw, this.row*this.dh, this.dw, this.dh, this.x - cameraX + this.ox, this.y - cameraY + this.oy, this.dw, this.dh);
 	}
 }

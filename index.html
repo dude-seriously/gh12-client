@@ -21,6 +21,7 @@
 		<script type='text/javascript' src='js/Audio.Scene.js'></script>
 		<script type='text/javascript' src='js/Audio.Theme.js'></script>
 		<script type='text/javascript' src='js/Audio.Object.js'></script>
+		<script type='text/javascript' src='js/Soul.js'></script>
 		
 		<script type='text/javascript'>
 
@@ -48,6 +49,9 @@
 			var imgDeadHuman;
 			var imgDeadZombie;
 
+			var imgShadow;
+			var imgSoul;
+
 			var cameraX = 0;
 			var cameraY = 0;
 
@@ -71,10 +75,9 @@
 			var deadBodies = new Array();
 
 			
+			var soulContainer;
+
 			$(document).ready(function() {
-
-				
-
 				var canvas = document.getElementById("canv");
 				ctx = canvas.getContext("2d");
 
@@ -101,6 +104,13 @@
 
 				imgDeadZombie = new Image();
 				imgDeadZombie.src = "img/dead_zombie.png";
+
+
+				imgShadow = new Image();
+				imgShadow.src = "img/shadow.png";
+
+				imgSoul = new Image();
+				imgSoul.src = "img/soul.png";
 
 				$logElement = $('div#log');
 				Log('system', 'begin');
@@ -180,6 +190,7 @@
 
 						InitHeroes();
 
+						soulContainer = new SoulContainer();
 						
 						userContainer.AddEventOnAdd(function(user) {
 							var row = $('<div class="row" id="user_' + user.id + '"></div>');
@@ -211,6 +222,16 @@
 								$('div#users').removeClass('own');
 							}
 						}
+
+						client.AddCallBack('soulUpdate', function(data) {
+							if (data.v > 0) {
+								soulContainer.AddSoul(data.id, data.x, data.y);
+							} else {
+								if (soulContainer.container[data.id] && soulContainer.container[data.id] != null) {
+									soulContainer.container[data.id].Collect();
+								}
+							}
+						});
 						
 						$('#nick').keyup(function() {
 							var nickTmp = $(this).val();
@@ -237,9 +258,12 @@
 							}
 						});
 
-						$("#canv").click(function() {
+						$("#canv").click(function(event) {
+							event.preventDefault();
 							mouseClick = true;
 						});
+
+
 
 						$("#canv").mousemove(function (event) {
 							mouseX = event.pageX - canvasX;

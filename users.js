@@ -10,7 +10,7 @@ function UserContainer() {
 
 UserContainer.prototype.Add = function(data) {
 	if (!this.container[data.id]) {
-		this.container[data.id] = new User({ id:data.id, name:data.n, latency:data.l });
+		this.container[data.id] = new User({ id:data.id, name:data.n, latency:data.l, score:data.s });
 		
 		for(var i in this.OnAdd) {
 			this.OnAdd[i](this.container[data.id]);
@@ -37,6 +37,9 @@ UserContainer.prototype.Update = function(data) {
 		}
 		if (data.l) {
 			this.container[data.id].latency = data.l;
+		}
+		if (data.s) {
+			this.container[data.id].score = data.s;
 		}
 		
 		for(var i in this.OnUpdate) {
