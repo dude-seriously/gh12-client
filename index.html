@@ -10,6 +10,7 @@
 		<script type='text/javascript' src='client.js'></script>
 		<script type='text/javascript' src='packet.js'></script>
 		<script type='text/javascript' src='users.js'></script>
+		<script type='text/javascript' src='js/DeadBody.js'></script>
 		<script type='text/javascript' src='js/Camera.js'></script>
 		<script type='text/javascript' src='js/MapManager.js'></script>
 		<script type='text/javascript' src='js/Sprite.js'></script>
@@ -44,6 +45,9 @@
 			var imgZombie;
 			var imgPlayer;
 
+			var imgDeadHuman;
+			var imgDeadZombie;
+
 			var cameraX = 0;
 			var cameraY = 0;
 
@@ -63,6 +67,8 @@
 			var mouseY = 0;
 
 			var mouseClick = false;
+
+			var deadBodies = new Array();
 			
 			$(document).ready(function() {
 
@@ -88,6 +94,12 @@
 
 				imgPlayer = new Image();
 				imgPlayer.src = "img/player.png";
+
+				imgDeadHuman = new Image();
+				imgDeadHuman.src = "img/dead_human.png";
+
+				imgDeadZombie = new Image();
+				imgDeadZombie.src = "img/dead_zombie.png";
 
 				$logElement = $('div#log');
 				Log('system', 'begin');

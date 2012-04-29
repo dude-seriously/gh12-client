@@ -23,6 +23,16 @@ GameLoop.prototype.Update = function() {
 		map.DrawMap(ctx, cameraX, cameraY);
 	}
 
+	for (var i in deadBodies) {
+		if (deadBodies[i].visible) {
+			if (deadBodies[i].evil) {
+				ctx.drawImage(imgDeadZombie, 0, 0, 32, 20, deadBodies[i].x - cameraX, deadBodies[i].y - cameraY, 32, 20);
+			} else {
+				ctx.drawImage(imgDeadHuman, 0, 0, 32, 20, deadBodies[i].x - cameraX, deadBodies[i].y - cameraY, 32, 20);
+			}
+		}
+	}
+
 	if (map) {
 		var cell = map.Pick(MouseToWorld());
 
@@ -46,6 +56,8 @@ GameLoop.prototype.Update = function() {
 			ctx.stroke();
 		}
 	}
+
+
 
 	for (var i in userContainer.container) {
 		if (userContainer.container[i] != null && userContainer.container[i].character) {
@@ -76,6 +88,7 @@ GameLoop.prototype.Update = function() {
 			heroContainer.container[i].characterSprite.sprite.Draw(ctx);
 		}
 	}
+
 
 	var lastDir = dir;
 
