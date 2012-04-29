@@ -43,33 +43,43 @@ div#top div#users {
 }
 
 div#top div#users div.row.own {
-	background:#6f6;
+	opacity:1;
+	background:#82cb4c;
 }
 
 div#top div#users div.row {
 	overflow:hidden;
 	border-bottom:1px #ccc solid;
 	padding:8px;
-	background:#ddd;
+	background:#d3d0c0;
+	opacity:0.7;
 	cursor:pointer;
 }
 
 div#top div#users div.row:hover {
 	background:#fff;
+	opacity:1;
 }
 
 div#top div#users div.row div.name {
+
 	float:left;
+	font-size:24px;
+	color:#3d2a1d;
 }
 
 div#top div#users div.row div.score {
+	margin-top:5px;
 	float:right;
-	color:#060;
+	font-size:18px;
+	color:#cb2525;
 	margin-right:8px;
 }
 
 div#top div#users div.row div.latency {
-	float:right;
+	margin-left:8px;
+	margin-top:2px;
+	float:left;
 	color:#666;
 }
 

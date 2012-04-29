@@ -74,7 +74,7 @@
 				
 				$('div#top div#status').html('connecting..');
 				
-				client = new Client("ws://10.10.2.42:8080/");
+				client = new Client("ws://10.10.2.39:8080/");
 				
 				if (!client.socket) {
 					$('div#top div#status').html('WebSockets not supported, use Firefox, Chrome or Safari');
@@ -147,10 +147,10 @@
 							var name = $('<div class="name">' + user.name + '</div>');
 							var score = $('<div class="score">' + (user.score ? user.score : '0') + '</div>');
 							var latency = $('<div class="latency">' + (user.latency ? user.latency : '-') + '</div>');
-							
+							row.append(score);
 							row.append(name);
 							row.append(latency);
-							row.append(score);
+							
 							$('div#users').append(row);
 							//$('div#users').append($('<div class="row" id="user_' + user.id + '"><div class="name">' + user.name + '</div><div class="score">' + user.k + ' / ' + user.d + '</div></div>'));
 						});
