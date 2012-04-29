@@ -116,7 +116,7 @@ CharacterSprite.prototype.Update = function() {
 	}
 }
 
-CharacterSprite.prototype.StartAttacking() {
+CharacterSprite.prototype.StartAttacking = function() {
 	this.attacking = true;
 
 	switch (this.GetFacing()) {
@@ -137,7 +137,7 @@ CharacterSprite.prototype.StartAttacking() {
 	}
 }
 
-CharacterSprite.prototype.StopAttacking() {
+CharacterSprite.prototype.StopAttacking = function() {
 	this.attacking = false;
 	this.sprite.StopAnimation();
 	this.sprite.current_frame = 1;

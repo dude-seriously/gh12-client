@@ -51,7 +51,23 @@ GameLoop.prototype.Update = function() {
 		if (userContainer.container[i] != null && userContainer.container[i].character) {
 			userContainer.container[i].character.characterSprite.Update();
 			if (userContainer.container[i].character.enabled) {
+
+
+				// Start ghost animation
+
+				var d = new Date();
+				var n = d.getTime();
+
+				var offset = Math.round(6 + (Math.sin(n/500 + (i*40)) * 6));
+
+				console.log(offset);
+
+				userContainer.container[i].character.characterSprite.sprite.oy = -offset;
+				// Finish ghost animation
+
 				userContainer.container[i].character.characterSprite.sprite.Draw(ctx);
+
+				
 			}
 		}
 	}
