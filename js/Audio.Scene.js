@@ -27,7 +27,7 @@ Audio.Scene = function (camera) {
     this.volume.connect(this.compressor);
     this.compressor.connect(this.context.destination);
 
-    this.environments = { };
+    var environments = new Object();
 
     var cameraPosition, oldCameraPosition, cameraDelta;
     			
@@ -47,22 +47,23 @@ Audio.Scene = function (camera) {
     this.loadEnvironment = function(name) {
         
         this.loadBuffer('snd/'+name+'.wav', function(buffer) {
-            self.environments[name] = buffer;
+            environments[name] = buffer;
             
         });
 
     };
 
     this.setEnvironment = function(name) {
-        if (this.environments[name]) {
+        if (environments[name]) {
           var cg = 0.7, fg = 0.3;
+          console.log("hi");
           if (name.match(/^filter-/)) {
             cg = 1, fg = 0;
           }
 
           this.convolverGain.gain.value = cg;
           this.flatGain.gain.value = fg;
-          this.convolver.buffer = this.environments[name];
+          this.convolver.buffer = environments[name];
         } else {
           this.flatGain.gain.value = 1;
           this.convolverGain.gain.value = 0;
@@ -80,13 +81,14 @@ Audio.Scene = function (camera) {
     };
 
     
-      this.loadEnvironment('coldwind');
+      this.loadEnvironment("coldwind");
       this.loadEnvironment('torch');
       this.loadEnvironment('pipeinhale');
       this.loadEnvironment('strumharp');
     
-      console.log(self.environments[name]);
-    console.log(this.environments[name]);
+      console.log(environments);
+      console.log(environments['coldwind']);
+    
 
 
 };

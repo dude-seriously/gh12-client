@@ -50,10 +50,9 @@
 			
 			$(document).ready(function() {
 
-				// var audio = new Audio.Scene();
-				// var audioTheme = new Audio.Theme({scene: audio, stream: 'snd/eleven_tigers_-_pixelguard_theme.mp3', volume : 0.9});
-				// audioTheme.play();
-				// audio.setEnvironment('strumharp');
+				var audio = new Audio.Scene();
+				var audioTheme = new Audio.Theme({scene: audio, stream: 'snd/eleven_tigers_-_pixelguard_theme.mp3', volume : 0.9});
+				audioTheme.play();
 
 				var canvas = document.getElementById("canv");
 				ctx = canvas.getContext("2d");
@@ -75,7 +74,7 @@
 				
 				$('div#top div#status').html('connecting..');
 				
-				client = new Client("ws://10.10.2.39:8080/");
+				client = new Client("ws://10.10.2.42:8080/");
 				
 				if (!client.socket) {
 					$('div#top div#status').html('WebSockets not supported, use Firefox, Chrome or Safari');
@@ -142,13 +141,6 @@
 
 						InitHeroes();
 
-<<<<<<< HEAD
-						
-=======
-						var audio = new Audio.Scene();
-						/*var audioTheme = new Audio.Theme({scene: audio, stream: 'snd/eleven_tigers_-_pixelguard_theme.mp3', volume : 0.9});
-						audioTheme.play();*/
->>>>>>> 237fdb3ca6178a69a89af286f93d991b6ae96a17
 						
 						userContainer.AddEventOnAdd(function(user) {
 							var row = $('<div class="row" id="user_' + user.id + '"></div>');
