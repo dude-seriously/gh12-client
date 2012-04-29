@@ -41,4 +41,28 @@ GameLoop.prototype.Update = function() {
 			heroContainer.container[i].characterSprite.sprite.Draw(ctx);
 		}
 	}
+
+	var lastDir = dir;
+
+	dir = 0;
+
+	if (keyW) {
+		dir = 1;
+	}
+	if (keyD) {
+		dir = 2;
+	}
+	if (keyS) {
+		dir = 3;
+	}
+	if (keyA) {
+		dir = 4;
+	}
+
+	if (lastDir != dir) {
+		var packet = new Packet();
+		packet.type = "charMove";
+		packet.d = dir;
+		client.Send(JSON.stringify(packet));
+	}
 }
