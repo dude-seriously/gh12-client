@@ -144,4 +144,12 @@ function InitHeroes() {
 	client.AddCallBack('heroRemove', function(data) {
 		heroContainer.Remove(data.id);
 	});
+
+	heroContainer.AddEventOnRemove(function(hero) {
+		new DeadBody(hero.characterSprite.sprite.x, hero.characterSprite.sprite.y, hero.evil);
+	});
+
+	/*client.AddCallBack('heroRemove', function(data) {
+		var body = new DeadBody(data.x, data.y, data.evil);
+	});*/
 }
