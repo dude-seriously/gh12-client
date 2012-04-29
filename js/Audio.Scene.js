@@ -5,6 +5,8 @@
 
 Audio.Scene = function (camera) {
 
+    var self = this;
+
     this.context = new webkitAudioContext();
     this.camera = camera;
 
@@ -19,9 +21,13 @@ Audio.Scene = function (camera) {
     this.convolver.connect(this.convolverGain);
     this.flatGain.connect(this.volume);
     this.convolverGain.connect(this.volume);
-    this.volume.connect(this.context.destination);
+    this.compressor = this.context.createDynamicsCompressor();
+    this.compressor.threshold.value = -1;
+    this.compressor.ratio.value = 2;
+    this.volume.connect(this.compressor);
+    this.compressor.connect(this.context.destination);
 
-    this.environments = { enabled : false };
+    var environments = new Object();
 
     var cameraPosition, oldCameraPosition, cameraDelta;
     			
@@ -38,11 +44,30 @@ Audio.Scene = function (camera) {
         return request;
     };
 
-    this.loadEnvironment = function(file) {
-        var self = this;
-        this.loadBuffer(file, function(buffer) {
-            self.environments[name] = buffer;
+    this.loadEnvironment = function(name) {
+        
+        this.loadBuffer('snd/'+name+'.wav', function(buffer) {
+            environments[name] = buffer;
+            
         });
+
+    };
+
+    this.setEnvironment = function(name) {
+        if (environments[name]) {
+          var cg = 0.7, fg = 0.3;
+          console.log("hi");
+          if (name.match(/^filter-/)) {
+            cg = 1, fg = 0;
+          }
+
+          this.convolverGain.gain.value = cg;
+          this.flatGain.gain.value = fg;
+          this.convolver.buffer = environments[name];
+        } else {
+          this.flatGain.gain.value = 1;
+          this.convolverGain.gain.value = 0;
+        }
     };
 
     this.update = function() {
@@ -54,6 +79,16 @@ Audio.Scene = function (camera) {
         this.context.listener.setVelocity( cameraDelta.x, cameraDelta.y, cameraDelta.z );
        
     };
+
+    
+      this.loadEnvironment("coldwind");
+      this.loadEnvironment('torch');
+      this.loadEnvironment('pipeinhale');
+      this.loadEnvironment('strumharp');
+    
+      console.log(environments);
+      console.log(environments['coldwind']);
+    
 
 
 };

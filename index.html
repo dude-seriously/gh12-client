@@ -53,6 +53,11 @@
 			var mouseY = 0;
 			
 			$(document).ready(function() {
+
+				var audio = new Audio.Scene();
+				var audioTheme = new Audio.Theme({scene: audio, stream: 'snd/eleven_tigers_-_pixelguard_theme.mp3', volume : 0.9});
+				audioTheme.play();
+
 				var canvas = document.getElementById("canv");
 				ctx = canvas.getContext("2d");
 
@@ -140,19 +145,16 @@
 
 						InitHeroes();
 
-						var audio = new Audio.Scene();
-						/*var audioTheme = new Audio.Theme({scene: audio, stream: 'snd/eleven_tigers_-_pixelguard_theme.mp3', volume : 0.9});
-						audioTheme.play();*/
 						
 						userContainer.AddEventOnAdd(function(user) {
 							var row = $('<div class="row" id="user_' + user.id + '"></div>');
 							var name = $('<div class="name">' + user.name + '</div>');
 							var score = $('<div class="score">' + (user.score ? user.score : '0') + '</div>');
 							var latency = $('<div class="latency">' + (user.latency ? user.latency : '-') + '</div>');
-							
+							row.append(score);
 							row.append(name);
 							row.append(latency);
-							row.append(score);
+							
 							$('div#users').append(row);
 							//$('div#users').append($('<div class="row" id="user_' + user.id + '"><div class="name">' + user.name + '</div><div class="score">' + user.k + ' / ' + user.d + '</div></div>'));
 						});
