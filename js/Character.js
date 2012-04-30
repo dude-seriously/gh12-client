@@ -1,6 +1,9 @@
 /*
 	The CharacterSprite class (visual)
 	Author: Maciej Baron
+	
+	
+	This class was used to create sprites for characters (heroes, monsters)
 */
 
 function CharacterSprite(start_x, start_y, sprite, speed) {
@@ -45,6 +48,11 @@ CharacterSprite.prototype.SetFacing = function (facing) {
 		1 = left				[row 0]
 		2 = right				[row 1]
 		3 = up (from behind)	[row 2]
+		
+		
+		Depending on when the character is facing, we need to 
+		select the right row in the spritesheet.
+		'Down' and 'left' are using the same row.
 
 	*/
 
@@ -89,6 +97,9 @@ CharacterSprite.prototype.MoveTo = function (x, y) {
 
 }
 
+/*
+	This function moves the character towards its destination
+*/
 CharacterSprite.prototype.Update = function() {
 	if (this.IsMoving()) {
 		if (Math.abs(this.sprite.x-this.target_x) <= this.speed) {
@@ -120,7 +131,7 @@ CharacterSprite.prototype.Update = function() {
 
 CharacterSprite.prototype.StartAttacking = function() {
 	this.attacking = true;
-
+	// Choose the right row for attack animation
 	switch (this.facing) {
 		case 0:
 		case 1:
