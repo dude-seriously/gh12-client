@@ -10,6 +10,11 @@ function Soul (id, x, y) {
 	this.collected = false;
 }
 
+/* The function below was suppose to animate the soul after collection
+   but we couldn't even draw the soul for some reason (1h before deadline)
+   so we commented it out, however if the class drawing function gets fixed
+   the function below should work anyway */
+
 /*Soul.prototype.Update = function() {
 	if (this.collected) {
 		var d = new Date();
