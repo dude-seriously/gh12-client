@@ -1,3 +1,8 @@
+/*
+	This function below calculates the camera coordinates based on
+	the position of your character, the position of you mouse cursor 
+	and the distance from the edge of the map
+*/
 function CameraUpdate () {
 	var canvas = document.getElementById("canv");
 	var my_x = myself.character.characterSprite.sprite.x;
