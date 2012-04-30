@@ -31,9 +31,6 @@ Sprite.prototype.SetLocation = function (x, y) {
 
 Sprite.prototype.Draw = function (context, x, y) {
 	if (this.spritesheet.complete) {
-		//if (this.spritesheet == imgSoul) {
-			//console.log(this);
-		//}
 		context.drawImage(this.spritesheet, this.current_frame*this.dw, this.row*this.dh, this.dw, this.dh, this.x - cameraX + this.ox, this.y - cameraY + this.oy, this.dw, this.dh);
 	}
 }
@@ -71,7 +68,7 @@ Sprite.prototype.Animate = function () {
 
 		            this.current_loop++;
 
-		            if (typeof this.callback != "undefined") this.callback();
+		            if (typeof this.callback === "function") this.callback();
 
 		            if (this.loops > 0 && this.current_loop >= this.loops) {
 			    		return 1;
@@ -81,7 +78,7 @@ Sprite.prototype.Animate = function () {
 		} else {
 		    this.current_frame++;
 		    if (this.current_frame == this.total_frames) {
-		    	if (typeof this.callback != "undefined") this.callback();
+		    	if (typeof this.callback === "function") this.callback();
 		    	this.current_loop++;
 
 		    	this.current_frame = 0;
